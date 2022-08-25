@@ -31,8 +31,8 @@ function login() {
         headers : {'Content-Type' : 'application/json'},
         body : JSON.stringify(jsObject)
     })
-    .then(res => {
-        res.text().then(data => console.log(data))
-     }) ;   
+//     .then(res => {
+//         res.text().then(data => console.log(data))
+//      }) ;   
     
-}
+ }
