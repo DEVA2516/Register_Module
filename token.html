@@ -7,17 +7,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>token</title>
 </head>
+<style>
+    h3,p {
+        margin-top: 100px;
+        display: flex;
+        justify-content: center;
+        color: rgb(38, 149, 223);
+    }
+</style>
 
 <body>
-    <p id="demo"></p>
+    <h3 id="demo"></h3>
+    <p id = 'link'></p>
+
 
     <script>
-           const params = new URLSearchParams(window.location.search)
-           params.get('token');
 
-        // fetch('http://localhost:3001/verify',{
+        const params = new URLSearchParams(window.location.search)
 
-        // })
+        console.log(params.get('token'));
+
+        let obj = {
+            'token': params.get('token')
+        }
+
+        fetch('http://localhost:3001/verify', {
+            method: 'POST',
+            body: JSON.stringify(obj),
+            headers: { 'Content-Type': 'application/json' }
+
+        }).then(res => {
+            res.text().then(data => {
+                console.log(typeof(data));
+                if (data === 'true') {
+                    document.getElementById('demo').innerText = 'verified successfully';
+                    document.getElementById("link").innerHTML 
+                    = '<a href = "http://localhost:5500/login.html"> click here <a>';
+                }
+                else {
+                    document.getElementById("demo").innerText = 'Token Mismatched or Expired.................'
+                }
+            })
+
+        })
     </script>
 
 </body>

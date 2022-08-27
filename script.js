@@ -33,7 +33,7 @@ function login() {
         body : JSON.stringify(jsObject)
     })  
     .then(res => {
-        res.text().then(data => console.log(data))
+        res.text().then(data => data)
      }) ;   
     
  }
