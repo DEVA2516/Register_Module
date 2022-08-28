@@ -22,7 +22,7 @@ let jsObject = {
 
 }
 
-function login() {
+ function login() {
     
     let uname = document.getElementById("uname").value;
     let upass = document.getElementById("upass").value;
@@ -33,8 +33,9 @@ function login() {
     }
 
     var count = 0;
+    var token = '';
     
-    fetch("http://localhost:3001/loginData",{
+ fetch("http://localhost:3001/loginData",{
         method : 'POST',
         headers : { 'Content-Type' : 'application/json'},
         body : JSON.stringify(jsObject)
@@ -47,10 +48,8 @@ function login() {
                // console.log(data.token);
                 console.log("logged in successfuly....")
                 localStorage.setItem('token',data.token);
-                var token = localStorage.getItem('token');
-                count++;
-                //console.log(token);
-                window.location.href = 'http://localhost:5500/form_index.html';
+                token = localStorage.getItem('token');
+                window.location.href = 'http://localhost:5500/form_index.html?token='+token;
             }
 
             else if (data.pass && data.uemail)
@@ -66,6 +65,7 @@ function login() {
                 document.getElementById("demo").innerText = "Your email or password is incorrect"
         })
      }) ;  
-     
-     console.log(count);
- }
+//      console.log("after fetch.......")
+//      console.log(count);
+//      console.log(token)
+  }
