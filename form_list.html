@@ -45,7 +45,7 @@
 
     <script>
         function viewUserDetails() {
-            fetch("http://localhost:3001/sql").then(res => {
+            fetch("http://localhost:3001/view").then(res => {
                 res.json().then(val => {
                     console.log(val.data[0].name);
                     

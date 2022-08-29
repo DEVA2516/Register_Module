@@ -77,6 +77,8 @@
 
         var params = new URLSearchParams(window.location.search);
         var token = params.get('token');
+        var gettoken = localStorage.getItem('token');
+        console.log(gettoken);
 
         var flag = true;
         var editid = 0;
@@ -136,11 +138,11 @@
             }
         }
 
+         //--------------------------LIST VIEW------------------------------------------
+
         function viewUserDetails() {
 
-            //--------------------------LIST VIEW------------------------------------------
-
-            fetch("http://localhost:3001/sql",{
+            fetch("http://localhost:3001/view",{
                 method :'GET',
                 headers : {
                     'Authorization' : 'bearer '+token
