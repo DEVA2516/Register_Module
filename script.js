@@ -50,9 +50,8 @@ let jsObject = {
                 console.log("logged in successfuly....")
                 
                 localStorage.setItem('token',data.token);
-                let token = localStorage.getItem('token');
 
-                window.location.href = 'http://localhost:5500/form_index.html?token='+token;
+                window.location.href = 'http://localhost:5500/form_index.html';
             }
 
             else if (data.pass && data.uemail)

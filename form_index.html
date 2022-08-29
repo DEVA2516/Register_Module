@@ -74,11 +74,10 @@
     </div>
 
     <script>
+        //console.log('form.index...');
 
-        var params = new URLSearchParams(window.location.search);
-        var token = params.get('token');
         var gettoken = localStorage.getItem('token');
-        console.log(gettoken);
+       console.log(gettoken);
 
         var flag = true;
         var editid = 0;
@@ -105,7 +104,7 @@
                     body: JSON.stringify(obj),
                     headers: {
                         'Content-Type': "application/json",
-                            'Authorization':'bearer '+token
+                        'Authorization':'bearer '+gettoken
                     }
                 })
                     .then(res => {
@@ -124,7 +123,7 @@
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization':'bearer '+token
+                        'Authorization':'bearer '+gettoken
                     },
                     body: JSON.stringify(obj)
                 })
@@ -145,7 +144,7 @@
             fetch("http://localhost:3001/view",{
                 method :'GET',
                 headers : {
-                    'Authorization' : 'bearer '+token
+                    'Authorization' : 'bearer '+gettoken
                 }
             }).then(res => {
                 res.json().then(val => {
@@ -185,7 +184,7 @@
             fetch('http://localhost:3001/getbyid/?id=' + id,{
                 method:'GET',
                 headers:{
-                    'Authorization':'bearer '+token
+                    'Authorization':'bearer '+gettoken
                 }
             })
                 .then(res => {
