@@ -32,8 +32,8 @@ let jsObject = {
         'pass': upass
     }
 
-    var count = 0;
-    var token = '';
+    // var count = 0;
+    // var token = '';
     
  fetch("http://localhost:3001/loginData",{
         method : 'POST',
@@ -41,15 +41,17 @@ let jsObject = {
         body : JSON.stringify(jsObject)
     })  
     .then(res => {
+        console.log(res);
         res.json().then(data => {
-            //console.log(data);
+            console.log(data);
 
-            if(data.verify && data.pass && data.uemail){ // false / false / false
+            if(data.verify && data.passMatch && data.uemail){ // false / false / false
                // console.log(data.token);
                 console.log("logged in successfuly....")
-                localStorage.setItem('token',data.token);
                 
-                token = localStorage.getItem('token');
+                localStorage.setItem('token',data.token);
+                let token = localStorage.getItem('token');
+
                 window.location.href = 'http://localhost:5500/form_index.html?token='+token;
             }
 
@@ -66,7 +68,4 @@ let jsObject = {
                 document.getElementById("demo").innerText = "Your email or password is incorrect"
         })
      }) ;  
-//      console.log("after fetch.......")
-//      console.log(count);
-//      console.log(token)
-  }
+}

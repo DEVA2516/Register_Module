@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <title>Form</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -42,13 +42,13 @@
     <div class="container">
         <!-- <h3>Form</h3><br> -->
         <form action="" id="myform">
-            
+
             <label for="name">Name: &nbsp;</label>
             <input type="text" name='Username' id="name" value=''><br> <br>
-            
+
             <label for="email">Email: &nbsp;</label>
             <input type="email" name="mail" id="email" value=''><br> <br>
-            
+
             <label for="msg">Message:</label>
             <textarea name="msg" rows=2 cols=25 id="msg" value=""> </textarea><br> <br>
 
@@ -57,18 +57,18 @@
     </div>
 
     <div class='container'>
-        
+
         <table id="mytable">
-            
+
             <tr>
                 <th>Name &nbsp;</th>
                 <th>Email &nbsp;</th>
                 <th>Message &nbsp;</th>
                 <th>Action</th>
             </tr>
-            
+
             <tbody id="mytablebody"> </tbody>
-        
+
         </table>
 
     </div>
@@ -76,7 +76,7 @@
     <script>
 
         var params = new URLSearchParams(window.location.search);
-        token = console.log(params.get('token'));
+        var token = params.get('token');
 
         var flag = true;
         var editid = 0;
@@ -101,11 +101,14 @@
                 fetch("http://localhost:3001/insert", {
                     method: 'POST',
                     body: JSON.stringify(obj),
-                    headers: { 'Content-Type': "application/json" }
+                    headers: {
+                        'Content-Type': "application/json",
+                            'Authorization':'bearer '+token
+                    }
                 })
                     .then(res => {
-                        console.log(res);
-                        viewUserDetails();
+                       res.text().then(data => console.log(data))
+                       viewUserDetails();
                     });
             }
 
@@ -113,16 +116,18 @@
                 // -------------------UPDATE DATA----------------------------------------
 
                 obj['id'] = editid;
-                console.log(obj);
+                //console.log(obj);
 
                 fetch("http://localhost:3001/updatebyid", {
                     method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' 
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization':'bearer '+token
                     },
                     body: JSON.stringify(obj)
                 })
                     .then(res => {
-                        console.log(res);
+                        //console.log(res);
                         viewUserDetails();
                     });
 
@@ -135,18 +140,22 @@
 
             //--------------------------LIST VIEW------------------------------------------
 
-            fetch("http://localhost:3001/sql").then(res => {
+            fetch("http://localhost:3001/sql",{
+                method :'GET',
+                headers : {
+                    'Authorization' : 'bearer '+token
+                }
+            }).then(res => {
                 res.json().then(val => {
-                    console.log(val.data[0].name);
+                    //console.log(val.data[0].name);
 
                     let details = val.data;
                     var view = '';
 
                     del = " <i class='fa-solid fa-eraser'></i>"
-                    console.log(details);
+                    //console.log(details);
 
                     for (let i = 0; i < details.length; i++) {
-
 
                         edit = '<button type="button" class="btn btn-outline-light" onclick = getuserbyid(' + +details[i].id
                             + ')> <i class="fa-solid fa-user-pen" > </i> </button>';
@@ -162,18 +171,22 @@
 
         viewUserDetails();
 
+         // ------------------------EDIT VALUES---------------------------------------------
+
 
         function getuserbyid(id) {
 
-            // ------------------------EDIT VALUES---------------------------------------------
             editid = id;
             console.log(editid);
-
             flag = false;
 
-            fetch('http://localhost:3001/getbyid/?id=' + id)
+            fetch('http://localhost:3001/getbyid/?id=' + id,{
+                method:'GET',
+                headers:{
+                    'Authorization':'bearer '+token
+                }
+            })
                 .then(res => {
-
                     res.json().then(data => {
 
                         values = data.data;
