@@ -48,6 +48,7 @@ let jsObject = {
                // console.log(data.token);
                 console.log("logged in successfuly....")
                 localStorage.setItem('token',data.token);
+                
                 token = localStorage.getItem('token');
                 window.location.href = 'http://localhost:5500/form_index.html?token='+token;
             }
