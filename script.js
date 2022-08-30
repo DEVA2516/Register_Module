@@ -44,6 +44,7 @@ let jsObject = {
         console.log(res);
         res.json().then(data => {
             console.log(data);
+            data = data.obj;
 
             if(data.verify && data.passMatch && data.uemail){ // false / false / false
                // console.log(data.token);
@@ -54,13 +55,9 @@ let jsObject = {
                 window.location.href = 'http://localhost:5500/form_index.html';
             }
 
-            else if (data.pass && data.uemail)
+            else if (data.passMatch && data.uemail)
                // console.log("please verify your password...");
                document.getElementById("demo").innerText = "Please verify your email";
-            
-            else if(data.uemail)
-                //console.log("your password incorrect......");
-                document.getElementById("demo").innerText = "Your password is incorrect"
             
             else 
                 //console.log("Your email or password incorrect...")
