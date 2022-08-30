@@ -22,24 +22,31 @@
 
     <style>
         .container {
-            margin-top: 100px;
+            margin-top: 35px;
             display: flex;
             justify-content: center;
         }
 
         label {
-            padding: 30px;
+            padding: 20px;
         }
 
         .btn-outline-light {
             color: #000;
         }
+        #log {
+            margin-top:20px ;
+            margin-left: 1000px;
+            
+        }
     </style>
+
 </head>
 
 <body>
-
+    <button type="button" id = 'log' onclick = 'logout()'>logout</button>
     <div class="container">
+       
         <!-- <h3>Form</h3><br> -->
         <form action="" id="myform">
 
@@ -89,7 +96,7 @@
             var umsg = document.getElementById("msg").value;
 
             console.log(uname, umail, umsg);
-
+            tr
             let obj = {
                 'name': uname,
                 'email': umail,
@@ -199,7 +206,11 @@
                 });
         }
 
-
+                function logout() {
+                    var gettoken = null;
+                    //localStorage.token = null;
+                    //  window.location.href = "http://localhost:5500/login.html";
+                }
     </script>
 </body>
 
