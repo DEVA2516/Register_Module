@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>forget password</title>
+</head>
+<style>
+    .container{
+        display: flex;
+        margin-top:220px;
+        justify-content: center;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <form action="">
+            <label for="mail">Email</label>
+            <input type="text" id='mail' value=""><br><br>
+            <button type="button" onclick="verifyEmail()">submit</button>
+            <p id="result"></p>
+        </form>
+    </div>
+<script>
+    function verifyEmail() {
+        let e = document.getElementById("mail").value;
+        let obj = {
+            'email':e
+        };
+
+        fetch("http://localhost:3001/validateEmail",{
+            method:"POST",
+            body : JSON.stringify(obj),
+            headers : {"Content-Type":"application/json"}
+        })
+        .then(res => {
+            res.text().then(data =>{
+                console.log(data)
+            })
+        })
+     }
+</script>
+
+</body>
+
+</html>

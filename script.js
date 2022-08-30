@@ -49,8 +49,8 @@ let jsObject = {
             if(data.verify && data.passMatch && data.uemail){ // false / false / false
                // console.log(data.token);
                 console.log("logged in successfuly....")
-                
-               window.localStorage.setItem('token',data.token);
+
+                localStorage.setItem('token',data.token);
 
                 window.location.href = 'http://localhost:5500/form_index.html';
             }
