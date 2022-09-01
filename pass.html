@@ -19,37 +19,46 @@
 
 <body>
     <div class="container">
-       
+
         <form action="">
             <label for="new">New Password:</label>
             <input type="password" id="pass" value=""><br><br>
-            <button type="button" onclick="updateNewPass()">submit</button>
+            <button type="button" onclick="updateNewPass()">submit</button><br>
+            <p id="result"></p>
         </form>
-       
-         <h3 id="result"></h3>
-        <!-- <p id='link'></p> --> 
+
+
+        <p id='link'></p>
     </div>
     <script>
-       function updateNewPass(){
+        function updateNewPass() {
 
             const params = new URLSearchParams(window.location.search);
-           
+
             let obj = {
                 'getToken': params.get('token'),
-                'newpass' : document.getElementById("pass").value
+                'newpass': document.getElementById("pass").value
             }
-            
+
             console.log(JSON.stringify(obj));
 
             fetch("http://localhost:3001/valTokenPass", {
                 method: 'POST',
                 headers: { 'Content-Type': 'Application/json' },
-                body : JSON.stringify(obj)
+                body: JSON.stringify(obj)
             })
-             .then(res => res.text().then(data => {
-                    document.getElementById("result").innerText = data;
+                .then(res => res.json().then(data => {
+                    data = data.return_obj;
+                    console.log(data);
 
-                    window.location.href = "http://localhost:5500/login.html";
+                    if (!data.flag) {
+                        document.getElementById("result").innerText = data.message;
+                    }
+
+                    else {
+                        document.getElementById("result").innerText = data.message;
+                        window.location.href = "http://localhost:5500/login.html";
+                    }
                 }
                 ))
         }
