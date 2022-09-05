@@ -15,7 +15,6 @@ let jsObject = {
     })
     .then(res => {
         res.text().then(data => {
-            //console.log(data);
             document.getElementById("demo").innerText = data;
         })
     });
@@ -41,27 +40,19 @@ let jsObject = {
         body : JSON.stringify(jsObject)
     })  
     .then(res => {
-        console.log(res);
         res.json().then(data => {
-            console.log(data);
+            
             data = data.obj;
 
-            if(data.verify && data.passMatch && data.uemail){ // false / false / false
-               // console.log(data.token);
+            if(data.flag){ 
+                
                 console.log("logged in successfuly....")
-
                 localStorage.setItem('token',data.token);
-
                 window.location.href = 'http://localhost:5500/form_index.html';
             }
 
-            else if (data.passMatch && data.uemail)
-               // console.log("please verify your password...");
-               document.getElementById("demo").innerText = "Please verify your email";
-            
-            else 
-                //console.log("Your email or password incorrect...")
-                document.getElementById("demo").innerText = "Your email or password is incorrect"
+            else
+                document.getElementById("demo").innerText = data.message
         })
      }) ;  
 }
