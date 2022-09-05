@@ -30,9 +30,6 @@ let jsObject = {
         'name': uname,
         'pass': upass
     }
-
-    // var count = 0;
-    // var token = '';
     
  fetch("http://localhost:3001/loginData",{
         method : 'POST',
@@ -45,7 +42,7 @@ let jsObject = {
             data = data.obj;
 
             if(data.flag){ 
-                
+
                 console.log("logged in successfuly....")
                 localStorage.setItem('token',data.token);
                 window.location.href = 'http://localhost:5500/form_index.html';

@@ -84,15 +84,12 @@
     </div>
 
     <script>
-        //console.log('form.index...');
 
         var gettoken = window.localStorage.getItem('token');
         console.log(gettoken);
 
         var flag = true;
         var editid = 0;
-
-        //const jwt = require()
 
         function getformvalue() {
 
@@ -129,7 +126,6 @@
                 // -------------------UPDATE DATA----------------------------------------
 
                 obj['id'] = editid;
-                //console.log(obj);
 
                 fetch("http://localhost:3001/updatebyid", {
                     method: 'PUT',
@@ -160,12 +156,9 @@
                 }
             }).then(res => {
                 res.json().then(val => {
-                    //console.log(val.data[0].name);
-
+                   
                     let details = val.data;
                     var view = '';
-
-                    //console.log(details);
 
                     for (let i = 0; i < details.length; i++) {
                         
@@ -229,9 +222,10 @@
                 headers : {
                     'Content-Type':'Application/json',
                     'Authorization':"bearer "+ gettoken
-                },
+                    },
                 body:JSON.stringify(objId)
-            }).then(res => {
+            })
+            .then(res => {
                 res.text().then(data => {
                     if(data === 'true')
                         viewUserDetails();
