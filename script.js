@@ -10,7 +10,9 @@ let jsObject = {
 }
     fetch('http://localhost:3001/signUpData', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+            'Content-Type': 'application/json'
+         },
         body: JSON.stringify(jsObject)
     })
     .then(res => {
